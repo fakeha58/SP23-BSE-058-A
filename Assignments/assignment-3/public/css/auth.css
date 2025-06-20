@@ -1,0 +1,225 @@
+/* Authentication Page Styles */
+
+.auth-body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+}
+
+.auth-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('public/images/background.png');
+    opacity: 0.3;
+}
+
+.auth-container {
+    position: relative;
+    z-index: 1;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 2rem 2.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2d2d2d;
+}
+
+.auth-card {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+}
+
+.auth-header .brand-link {
+    font-size: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none !important;
+}
+
+.auth-form .form-group {
+    margin-bottom: 1.2rem;
+}
+
+.auth-form label {
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #f9fafb;
+    font-size: 1rem;
+    transition: border 0.2s;
+}
+
+.auth-form input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.auth-form .btn-primary {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    transition: background 0.2s;
+}
+
+.auth-form .btn-primary:hover {
+    background: #0056b3;
+}
+
+.auth-form .error-message {
+    color: #d90429;
+    background: #ffeaea;
+    border: 1px solid #f5c2c7;
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.auth-form .form-link {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.auth-form .form-link:hover {
+    text-decoration: underline;
+}
+
+/* Demo account styling */
+.alert-info {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 10px;
+}
+
+/* Animation */
+.auth-card {
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 1rem;
+    }
+    
+    .auth-header .brand-link {
+        font-size: 1.5rem;
+    }
+}
+
+/* About Page Styles */
+.about-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    padding: 2.5rem 2rem;
+}
+
+.about-container h1, .about-container h2 {
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+
+.about-container p {
+    color: #333;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.about-container ul {
+    margin: 1.5rem 0 1rem 1.5rem;
+    color: #444;
+}
+
+/* Footer Styles */
+.site-footer {
+    background: #222;
+    color: #eee;
+    padding: 2rem 0 1rem 0;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.site-footer a {
+    color: #00bfff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color 0.2s;
+}
+
+.site-footer a:hover {
+    color: #fff;
+}
+
+.site-footer .footer-links {
+    margin-bottom: 0.7rem;
+}
+
+.site-footer .footer-social {
+    margin-top: 0.7rem;
+}
+
+.site-footer .footer-social a {
+    margin: 0 0.3rem;
+    font-size: 1.2rem;
+    color: #eee;
+    transition: color 0.2s;
+}
+
+.site-footer .footer-social a:hover {
+    color: #00bfff;
+}
+
+@media (max-width: 600px) {
+    .site-footer {
+        padding: 1.2rem 0 0.7rem 0;
+        font-size: 0.95rem;
+    }
+    .site-footer .footer-social a {
+        font-size: 1rem;
+    }
+}
