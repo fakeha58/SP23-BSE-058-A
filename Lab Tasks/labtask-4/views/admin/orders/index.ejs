@@ -1,0 +1,58 @@
+<div class="container py-4">
+  <h1>Admin: Orders</h1>
+  <% if (orders.length === 0) { %>
+    <p>No orders found.</p>
+  <% } else { %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Order #</th>
+          <th>Customer</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Update Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.forEach(order => { %>
+          <tr>
+            <td><%= order.orderNumber %></td>
+            <td>
+              <% if (order.userId && order.userId.name) { %>
+                <%= order.userId.name %>
+              <% } else if (order.guestInfo) { %>
+                <%= order.guestInfo.name %> (Guest)
+              <% } else { %>
+                Unknown
+              <% } %>
+            </td>
+            <td>
+              <ul>
+                <% order.items.forEach(item => { %>
+                  <li><%= item.name %> x <%= item.quantity %></li>
+                <% }) %>
+              </ul>
+            </td>
+            <td>$<%= order.totalAmount %></td>
+            <td><%= order.createdAt.toLocaleString() %></td>
+            <td><%= order.status %></td>
+            <td>
+              <form action="/admin/orders/status/<%= order._id %>" method="POST">
+                <select name="status" class="form-select form-select-sm mb-2">
+                  <option value="Pending" <%= order.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                  <option value="Processing" <%= order.status === 'Processing' ? 'selected' : '' %>>Processing</option>
+                  <option value="Shipped" <%= order.status === 'Shipped' ? 'selected' : '' %>>Shipped</option>
+                  <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+                  <option value="Cancelled" <%= order.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+                </select>
+                <button type="submit" class="btn btn-sm btn-primary">Update</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div> 
