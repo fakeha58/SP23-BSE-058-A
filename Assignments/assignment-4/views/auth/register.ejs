@@ -1,0 +1,39 @@
+<div class="auth-form">
+    <h2 class="text-center mb-4">Create Account</h2>
+    <p class="text-center text-muted mb-4">Join Fashion Store and start shopping</p>
+    
+    <form action="/auth/register" method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control form-control-lg" id="name" name="name" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control form-control-lg" id="email" name="email" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control form-control-lg" id="password" name="password" 
+                   minlength="6" required>
+            <div class="form-text">Password must be at least 6 characters long</div>
+        </div>
+        
+        <div class="mb-4">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control form-control-lg" id="confirmPassword" 
+                   name="confirmPassword" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+            <i class="fas fa-user-plus me-2"></i>Create Account
+        </button>
+    </form>
+    
+    <div class="text-center">
+        <p class="mb-0">Already have an account? 
+            <a href="/auth/login" class="text-decoration-none">Sign in here</a>
+        </p>
+    </div>
+</div>

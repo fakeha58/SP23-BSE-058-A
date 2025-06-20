@@ -1,0 +1,207 @@
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/products">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><%= product.name %></li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Product Images -->
+        <div class="col-lg-6 mb-4">
+            <div class="product-gallery">
+                <div class="main-image mb-3">
+                    <img src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg" alt="<%= product.name %>" 
+                         class="img-fluid rounded shadow" id="mainImage">
+                </div>
+                <% if (product.images && product.images.length > 1) { %>
+                    <div class="thumbnail-images">
+                        <div class="row g-2">
+                            <% product.images.forEach((image, index) => { %>
+                                <div class="col-3">
+                                    <img src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg" alt="<%= product.name %> <%= index + 1 %>" 
+                                         class="img-fluid rounded thumbnail-img <%= index === 0 ? 'active' : '' %>"
+                                         onclick="changeMainImage('<%= image %>', this)">
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-lg-6">
+            <div class="product-details">
+                <h1 class="product-title mb-3"><%= product.name %></h1>
+                
+                <!-- Rating -->
+                <div class="product-rating mb-3">
+                    <% for(let i = 1; i <= 5; i++) { %>
+                        <i class="fas fa-star <%= i <= Math.floor(product.rating) ? 'text-warning' : 'text-muted' %>"></i>
+                    <% } %>
+                    <span class="ms-2">(<%= product.reviews %> reviews)</span>
+                </div>
+
+                <!-- Price -->
+                <div class="product-price mb-4">
+                    <span class="h3 text-primary fw-bold">$<%= product.price %></span>
+                    <% if (product.originalPrice > product.price) { %>
+                        <span class="h5 text-muted text-decoration-line-through ms-3">
+                            $<%= product.originalPrice %>
+                        </span>
+                        <span class="badge bg-danger ms-2">
+                            Save $<%= (product.originalPrice - product.price).toFixed(2) %>
+                        </span>
+                    <% } %>
+                </div>
+
+                <!-- Description -->
+                <div class="product-description mb-4">
+                    <p class="lead"><%= product.description %></p>
+                </div>
+
+                <!-- Product Options -->
+                <form action="/cart/add" method="POST">
+                    <input type="hidden" name="productId" value="<%= product.id %>">
+                    
+                    <!-- Size Selection -->
+                    <% if (product.sizes && product.sizes.length > 0) { %>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Size:</label>
+                            <div class="size-options">
+                                <% product.sizes.forEach(size => { %>
+                                    <input type="radio" class="btn-check" name="size" 
+                                           id="size-<%= size %>" value="<%= size %>" required>
+                                    <label class="btn btn-outline-dark me-2 mb-2" for="size-<%= size %>">
+                                        <%= size %>
+                                    </label>
+                                <% }); %>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- Color Selection -->
+                    <% if (product.colors && product.colors.length > 0) { %>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Color:</label>
+                            <div class="color-options">
+                                <% product.colors.forEach(color => { %>
+                                    <input type="radio" class="btn-check" name="color" 
+                                           id="color-<%= color %>" value="<%= color %>" required>
+                                    <label class="btn btn-outline-dark me-2 mb-2" for="color-<%= color %>">
+                                        <%= color %>
+                                    </label>
+                                <% }); %>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- Quantity -->
+                    <div class="mb-4">
+                        <label for="quantity" class="form-label fw-bold">Quantity:</label>
+                        <div class="input-group" style="width: 130px;">
+                            <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(-1)">-</button>
+                            <input type="number" class="form-control text-center" id="quantity" 
+                                   name="quantity" value="1" min="1" max="10">
+                            <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="product-actions mb-4">
+                        <% if (product.inStock) { %>
+                            <button type="submit" class="btn btn-primary btn-lg me-3">
+                                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                            </button>
+                            <button type="button" class="btn btn-outline-dark btn-lg">
+                                <i class="fas fa-heart me-2"></i>Add to Wishlist
+                            </button>
+                        <% } else { %>
+                            <button type="button" class="btn btn-secondary btn-lg" disabled>
+                                <i class="fas fa-times me-2"></i>Out of Stock
+                            </button>
+                        <% } %>
+                    </div>
+                </form>
+
+                <!-- Product Features -->
+                <div class="product-features">
+                    <div class="row">
+                        <div class="col-6 col-md-3 text-center mb-3">
+                            <i class="fas fa-shipping-fast fa-2x text-primary mb-2"></i>
+                            <p class="small mb-0">Free Shipping</p>
+                        </div>
+                        <div class="col-6 col-md-3 text-center mb-3">
+                            <i class="fas fa-undo fa-2x text-primary mb-2"></i>
+                            <p class="small mb-0">Easy Returns</p>
+                        </div>
+                        <div class="col-6 col-md-3 text-center mb-3">
+                            <i class="fas fa-shield-alt fa-2x text-primary mb-2"></i>
+                            <p class="small mb-0">Secure Payment</p>
+                        </div>
+                        <div class="col-6 col-md-3 text-center mb-3">
+                            <i class="fas fa-headset fa-2x text-primary mb-2"></i>
+                            <p class="small mb-0">24/7 Support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    <% if (relatedProducts.length > 0) { %>
+        <section class="related-products mt-5">
+            <h3 class="mb-4">Related Products</h3>
+            <div class="row g-4">
+                <% relatedProducts.forEach(relatedProduct => { %>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card h-100">
+                            <div class="product-image position-relative">
+                                <img src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg" alt="<%= relatedProduct.name %>" class="img-fluid">
+                                <div class="product-overlay">
+                                    <a href="/products/<%= relatedProduct.id %>" class="btn btn-light btn-sm">
+                                        <i class="fas fa-eye me-1"></i>View
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-info p-3">
+                                <h6 class="product-title mb-2">
+                                    <a href="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg" class="text-decoration-none text-dark">
+                                        <%= relatedProduct.name %>
+                                    </a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="fw-bold text-primary">$<%= relatedProduct.price %></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </section>
+    <% } %>
+</div>
+
+<script>
+function changeMainImage(imageSrc, thumbnail) {
+    document.getElementById('mainImage').src = imageSrc;
+    
+    // Update active thumbnail
+    document.querySelectorAll('.thumbnail-img').forEach(img => img.classList.remove('active'));
+    thumbnail.classList.add('active');
+}
+
+function changeQuantity(delta) {
+    const quantityInput = document.getElementById('quantity');
+    const currentValue = parseInt(quantityInput.value);
+    const newValue = currentValue + delta;
+    
+    if (newValue >= 1 && newValue <= 10) {
+        quantityInput.value = newValue;
+    }
+}
+</script>

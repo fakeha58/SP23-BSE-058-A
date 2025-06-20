@@ -1,0 +1,124 @@
+<div class="container py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-user-circle me-2"></i>
+                        <%= user.name %>
+                    </h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="/user/dashboard" class="list-group-item list-group-item-action">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a href="/user/profile" class="list-group-item list-group-item-action">
+                        <i class="fas fa-user me-2"></i>Profile
+                    </a>
+                    <a href="/user/my-orders" class="list-group-item list-group-item-action active">
+                        <i class="fas fa-shopping-cart me-2"></i>My Orders
+                    </a>
+                    <form action="/auth/logout" method="POST" class="d-inline">
+                        <button type="submit" class="list-group-item list-group-item-action text-danger border-0 bg-transparent w-100 text-start">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">My Orders</h4>
+                </div>
+                <div class="card-body">
+                    <% if (!orders || orders.length === 0) { %>
+                        <div class="text-center py-5">
+                            <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                            <h5>No orders yet</h5>
+                            <p class="text-muted">Start shopping to see your orders here.</p>
+                            <a href="/products" class="btn btn-primary">Start Shopping</a>
+                        </div>
+                    <% } else { %>
+                        <% orders.forEach(order => { %>
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <h6 class="mb-0">Order #<%= order.orderNumber %></h6>
+                                            <small class="text-muted">Placed on <%= order.createdAt.toLocaleDateString() %></small>
+                                        </div>
+                                        <div class="col-md-6 text-md-end">
+                                            <span class="badge bg-<%= order.status === 'Delivered' ? 'success' : order.status === 'Processing' ? 'warning' : 'primary' %> me-2">
+                                                <%= order.status %>
+                                            </span>
+                                            <strong>$<%= order.totalAmount.toFixed(2) %></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <% if (order.items && order.items.length > 0) { %>
+                                        <% order.items.forEach(item => { %>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <div>
+                                                    <h6 class="mb-1"><%= item.name %></h6>
+                                                    <small class="text-muted">
+                                                        Quantity: <%= item.quantity %>
+                                                        <% if (item.size) { %> | Size: <%= item.size %><% } %>
+                                                        <% if (item.color) { %> | Color: <%= item.color %><% } %>
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <strong>$<%= (item.price * item.quantity).toFixed(2) %></strong>
+                                                </div>
+                                            </div>
+                                        <% }); %>
+                                    <% } %>
+                                    <hr>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <% if (order.status === 'Pending' || order.status === 'Processing') { %>
+                                                <button class="btn btn-outline-danger btn-sm" onclick="cancelOrder('<%= order._id %>')">Cancel Order</button>
+                                            <% } %>
+                                            <% if (order.status === 'Delivered') { %>
+                                                <button class="btn btn-outline-primary btn-sm">Leave Review</button>
+                                            <% } %>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-outline-secondary btn-sm" onclick="viewOrderDetails('<%= order._id %>')">View Details</button>
+                                            <% if (order.status === 'Delivered') { %>
+                                                <button class="btn btn-primary btn-sm" onclick="reorder('<%= order._id %>')">Reorder</button>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function cancelOrder(orderId) {
+    if (confirm('Are you sure you want to cancel this order?')) {
+        // Implement cancel order functionality
+        alert('Order cancellation feature will be implemented soon.');
+    }
+}
+
+function viewOrderDetails(orderId) {
+    // Implement view order details functionality
+    alert('Order details view will be implemented soon.');
+}
+
+function reorder(orderId) {
+    // Implement reorder functionality
+    alert('Reorder feature will be implemented soon.');
+}
+</script>
