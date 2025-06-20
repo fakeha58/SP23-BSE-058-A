@@ -1,0 +1,111 @@
+<div class="container py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-user-circle me-2"></i>
+                        <%= user.name %>
+                    </h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="/user/dashboard" class="list-group-item list-group-item-action">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a href="/user/profile" class="list-group-item list-group-item-action active">
+                        <i class="fas fa-user me-2"></i>Profile
+                    </a>
+                    <a href="/user/my-orders" class="list-group-item list-group-item-action">
+                        <i class="fas fa-shopping-cart me-2"></i>My Orders
+                    </a>
+                    <form action="/auth/logout" method="POST" class="d-inline">
+                        <button type="submit" class="list-group-item list-group-item-action text-danger border-0 bg-transparent w-100 text-start">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Profile Information</h4>
+                </div>
+                <div class="card-body">
+                    <form action="/user/profile" method="POST">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       value="<%= userProfile ? userProfile.name : user.name %>" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                       value="<%= userProfile ? userProfile.email : user.email %>" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" 
+                                       value="<%= userProfile && userProfile.phone ? userProfile.phone : '' %>"
+                                       placeholder="(555) 123-4567">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="birthday" class="form-label">Birthday</label>
+                                <input type="date" class="form-control" id="birthday" name="birthday"
+                                       value="<%= userProfile && userProfile.birthday ? userProfile.birthday.toISOString().split('T')[0] : '' %>">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="address" class="form-label">Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" 
+                                      placeholder="Enter your full address"><%= userProfile && userProfile.address ? userProfile.address : '' %></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Change Password -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Change Password</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/user/change-password" method="POST">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword" 
+                                   name="currentPassword" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="newPassword" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" 
+                                       name="newPassword" minlength="6" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmNewPassword" 
+                                       name="confirmNewPassword" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-key me-2"></i>Change Password
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <h1 class="display-3 fw-bold mb-4">Discover Your Style</h1>
+                    <p class="lead mb-4">Explore our premium collection of fashion items designed for the modern individual. Quality meets style in every piece.</p>
+                    <div class="hero-buttons">
+                        <a href="/products" class="btn btn-primary btn-lg me-3">Shop Now</a>
+                        <a href="/about" class="btn btn-outline-primary btn-lg">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg" alt="Fashion Collection" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-products py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Featured Products</h2>
+            <p class="lead text-muted">Discover our most popular and trending items</p>
+        </div>
+        
+        <div class="row g-4">
+            <% if (featuredProducts && featuredProducts.length > 0) { %>
+                <% featuredProducts.forEach(product => { %>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card product-card h-100 border-0 shadow-sm">
+                            <div class="product-image-container">
+                                <img src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg" class="card-img-top" alt="<%= product.name %>">
+                                <div class="product-overlay">
+                                    <a href="/products/<%= product.id %>" class="btn btn-primary btn-sm">View Details</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><%= product.name %></h5>
+                                <p class="card-text text-muted"><%= product.description.substring(0, 80) %>...</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price-section">
+                                        <span class="current-price">$<%= product.price.toFixed(2) %></span>
+                                        <% if (product.originalPrice && product.originalPrice > product.price) { %>
+                                            <span class="original-price">$<%= product.originalPrice.toFixed(2) %></span>
+                                        <% } %>
+                                    </div>
+                                    <div class="rating">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <span class="ms-1"><%= product.rating %></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="col-12 text-center">
+                    <p class="text-muted">No featured products available at the moment.</p>
+                </div>
+            <% } %>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/products" class="btn btn-primary btn-lg">View All Products</a>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Shop by Category</h2>
+            <p class="lead text-muted">Find exactly what you're looking for</p>
+        </div>
+        
+        <div class="row g-4">
+            <% if (categories && categories.length > 0) { %>
+                <% categories.forEach(category => { %>
+                    <% if (category.id !== 'all') { %>
+                        <div class="col-lg-2 col-md-4 col-6">
+                            <a href="/products?category=<%= category.id %>" class="text-decoration-none">
+                                <div class="card category-card text-center border-0 shadow-sm h-100">
+                                    <div class="card-body">
+                                        <div class="category-icon mb-3">
+                                            <% if (category.id === 'jackets') { %>
+                                                <i class="fas fa-tshirt fa-2x text-primary"></i>
+                                            <% } else if (category.id === 'shirts') { %>
+                                                <i class="fas fa-tshirt fa-2x text-info"></i>
+                                            <% } else if (category.id === 'jeans') { %>
+                                                <i class="fas fa-socks fa-2x text-success"></i>
+                                            <% } else if (category.id === 'dresses') { %>
+                                                <i class="fas fa-female fa-2x text-danger"></i>
+                                            <% } else if (category.id === 'shoes') { %>
+                                                <i class="fas fa-shoe-prints fa-2x text-warning"></i>
+                                            <% } else if (category.id === 'sweaters') { %>
+                                                <i class="fas fa-tshirt fa-2x text-secondary"></i>
+                                            <% } else { %>
+                                                <i class="fas fa-tag fa-2x text-muted"></i>
+                                            <% } %>
+                                        </div>
+                                        <h6 class="card-title text-dark"><%= category.name %></h6>
+                                        <small class="text-muted"><%= category.count %> items</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <% } %>
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h3 class="mb-3">Stay Updated</h3>
+                <p class="text-muted mb-4">Subscribe to our newsletter for the latest fashion trends and exclusive offers.</p>
+                <form action="/newsletter" method="POST" class="newsletter-form">
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control form-control-lg" placeholder="Enter your email address" required>
+                        <button class="btn btn-primary btn-lg" type="submit">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.product-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.current-price {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.1em;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #6c757d;
+    font-size: 0.9em;
+    margin-left: 8px;
+}
+
+.category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+}
+
+.newsletter-section {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.newsletter-form .form-control {
+    border: none;
+    border-radius: 50px 0 0 50px;
+}
+
+.newsletter-form .btn {
+    border-radius: 0 50px 50px 0;
+    border: none;
+}
+</style> 
