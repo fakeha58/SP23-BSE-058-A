@@ -1,0 +1,35 @@
+<div class="container py-4">
+  <h1>Add Vehicle</h1>
+  <form action="/admin/vehicles/add" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="mb-3">
+      <label for="brand" class="form-label">Brand</label>
+      <input type="text" class="form-control" id="brand" name="brand" required>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+    </div>
+    <div class="mb-3">
+      <label for="type" class="form-label">Type</label>
+      <select class="form-control" id="type" name="type" required>
+        <option value="sedan">Sedan</option>
+        <option value="suv">SUV</option>
+        <option value="truck">Truck</option>
+        <option value="coupe">Coupe</option>
+        <option value="convertible">Convertible</option>
+        <option value="hatchback">Hatchback</option>
+        <option value="minivan">Minivan</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input type="file" class="form-control" id="image" name="image" required>
+    </div>
+    <button type="submit" class="btn btn-success">Add Vehicle</button>
+    <a href="/admin/vehicles" class="btn btn-secondary">Cancel</a>
+  </form>
+</div> 
